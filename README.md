@@ -6,4 +6,7 @@ This is my implementation of the Tic-Tac-Toe application built during the
 No extra bits of functionality were added, but I did change some of the code
 around so that it made more sense to me.
 
+It's deployed out using Github Pages at
+<https://paulfioravanti.com/tic-tac-toe/>.
+
 [React Tutorial]: https://reactjs.org/tutorial/tutorial.html
