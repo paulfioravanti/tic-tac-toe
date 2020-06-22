@@ -34,5 +34,17 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "description": "This is my implementation of the Tic-Tac-Toe application built during the [React Tutorial][].",
+  "main": "index.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paulfioravanti/tic-tac-toe.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/paulfioravanti/tic-tac-toe/issues"
   }
 }
