@@ -53,12 +53,12 @@ export class Game extends React.Component {
       stepNumber: 0,
       xIsNext: true,
       cells: Game.CELLS,
-      onClick: this.handleClick.bind(this)
+      handleClick: this.handleClick.bind(this)
     };
   }
 
   render() {
-    const { history, cells, onClick, stepNumber, xIsNext } = this.state;
+    const { history, cells, handleClick, stepNumber, xIsNext } = this.state;
     const currentState = history[stepNumber];
     const moves = history.map(this.renderHistoricalMove.bind(this));
     const status = Game.status(currentState, xIsNext);
@@ -70,7 +70,7 @@ export class Game extends React.Component {
           <Board
             squares={squares}
             cells={cells}
-            onClick={onClick}
+            handleClick={handleClick}
           />
         </div>
         <div className="game-info">
@@ -104,13 +104,13 @@ export class Game extends React.Component {
   }
 
   renderHistoricalMove(_move, index) {
-    const handleClick = this.jumpTo.bind(this, index)
+    const handleHistoricalMoveClick = this.jumpTo.bind(this, index)
 
     return (
       <HistoricalMove
         key={index}
         move={index}
-        onClick={handleClick}
+        handleClick={handleHistoricalMoveClick}
       />
     );
   }

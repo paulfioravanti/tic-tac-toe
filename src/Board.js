@@ -36,7 +36,7 @@ export class Board extends React.Component {
   }
 
   renderBoardRow(row, index) {
-    const { squares, onClick } = this.props;
+    const { squares, handleClick } = this.props;
     const key = `row-${index}`;
 
     return (
@@ -44,7 +44,7 @@ export class Board extends React.Component {
         key={key}
         row={row}
         squares={squares}
-        onClick={onClick}
+        handleClick={handleClick}
       />
     );
   }

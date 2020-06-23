@@ -19,16 +19,16 @@ export class Row extends React.Component {
   }
 
   renderSquare(square, index) {
-    const { squares, onClick } = this.props;
+    const { squares, handleClick } = this.props;
     const key = `square-${index}`;
     const value = squares[square];
-    const handleClick = onClick.bind(this, square);
+    const handleSquareClick = handleClick.bind(null, square);
 
     return (
       <Square
         key={key}
         value={value}
-        onClick={handleClick}
+        handleClick={handleSquareClick}
       />
     );
   }

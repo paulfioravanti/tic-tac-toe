@@ -1,12 +1,11 @@
 import React from "react";
 
-export function HistoricalMove(props) {
-  const move = props.move;
+export function HistoricalMove({ move, handleClick }) {
   const description = move ? "Go to move #" + move : "Go to game start";
 
   return (
     <li>
-      <button onClick={props.onClick}>
+      <button onClick={handleClick}>
         {description}
       </button>
     </li>
