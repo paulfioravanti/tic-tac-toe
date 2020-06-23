@@ -52,13 +52,12 @@ export class Game extends React.Component {
       }],
       stepNumber: 0,
       xIsNext: true,
-      cells: Game.CELLS,
-      handleClick: this.handleClick.bind(this)
     };
+    this.handleClick = this.handleClick.bind(this)
   }
 
   render() {
-    const { history, cells, handleClick, stepNumber, xIsNext } = this.state;
+    const { history, stepNumber, xIsNext } = this.state;
     const currentState = history[stepNumber];
     const moves = history.map(this.renderHistoricalMove.bind(this));
     const status = Game.status(currentState, xIsNext);
@@ -69,8 +68,8 @@ export class Game extends React.Component {
         <div className="game-board">
           <Board
             squares={squares}
-            cells={cells}
-            handleClick={handleClick}
+            cells={Game.CELLS}
+            handleClick={this.handleClick}
           />
         </div>
         <div className="game-info">
