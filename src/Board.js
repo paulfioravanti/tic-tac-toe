@@ -1,51 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import { Row } from "./Row";
 
-export class Board extends React.Component {
-  static chunk(array, size) {
-    const chunked = [];
-    let index = 0;
-    while (index < array.length) {
-      chunked.push(array.slice(index, size + index));
-      index += size;
-    }
-    return chunked;
+export function Board(props) {
+  const [rows] = useState(initRows(props));
+  const boardRows = renderBoardRows(rows, props);
+
+  return (
+    <div>
+      {boardRows}
+    </div>
+  );
+}
+
+// PRIVATE
+
+function initRows({ cells }) {
+  return chunk([...cells], 3);
+}
+
+function chunk(array, size) {
+  const chunked = [];
+  let index = 0;
+  while (index < array.length) {
+    chunked.push(array.slice(index, size + index));
+    index += size;
   }
+  return chunked;
+}
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      rows: Board.chunk([...this.props.cells], 3)
-    }
-  }
+function renderBoardRows(rows, props) {
+  return rows.map(renderBoardRow.bind(null, props));
+}
 
-  render() {
-    const rows = this.renderBoardRows();
+function renderBoardRow({ squares, handleClick }, row, index) {
+  const key = `row-${index}`;
 
-    return (
-      <div>
-        {rows}
-      </div>
-    );
-  }
-
-  // PRIVATE
-
-  renderBoardRows() {
-    return this.state.rows.map(this.renderBoardRow.bind(this));
-  }
-
-  renderBoardRow(row, index) {
-    const { squares, handleClick } = this.props;
-    const key = `row-${index}`;
-
-    return (
-      <Row
-        key={key}
-        row={row}
-        squares={squares}
-        handleClick={handleClick}
-      />
-    );
-  }
+  return (
+    <Row
+      key={key}
+      row={row}
+      squares={squares}
+      handleClick={handleClick}
+    />
+  );
 }
