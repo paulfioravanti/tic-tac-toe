@@ -1,25 +1,22 @@
 import React from "react";
 import { Square } from "./Square";
 
-export class Row extends React.Component {
-  render() {
-    const squares = this.renderSquares();
+export function Row(props) {
+  const squares = renderSquares(props);
 
-    return (
-      <div className="board-row">
-        {squares}
-      </div>
-    );
-  }
+  return (
+    <div className="board-row">
+      {squares}
+    </div>
+  );
 
   // PRIVATE
 
-  renderSquares() {
-    return this.props.row.map(this.renderSquare.bind(this));
+  function renderSquares({ row, squares, handleClick }) {
+    return row.map(renderSquare.bind(null, squares, handleClick));
   }
 
-  renderSquare(square, index) {
-    const { squares, handleClick } = this.props;
+  function renderSquare(squares, handleClick, square, index) {
     const key = `square-${index}`;
     const value = squares[square];
     const handleSquareClick = handleClick.bind(null, square);
