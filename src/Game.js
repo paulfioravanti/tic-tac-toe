@@ -19,7 +19,7 @@ export function Game(props) {
   const [history, setHistory] = useState([{ squares: INITIAL_BOARD }]);
   const [stepNumber, setStepNumber] = useState(0);
   const [xIsNext, setXIsNext] = useState(true);
-  const handleClick = setHandleClick.bind(null, history, stepNumber, xIsNext);
+  const handleClick = setHandleClick.bind(null);
   const currentState = history[stepNumber];
   const moves = history.map(renderHistoricalMove.bind(null));
   const status = getStatus(currentState, xIsNext);
@@ -43,7 +43,7 @@ export function Game(props) {
 
   // PRIVATE
 
-  function setHandleClick(history, stepNumber, xIsNext, square) {
+  function setHandleClick(square) {
     const currentHistory = history.slice(0, stepNumber + 1);
     const currentState = currentHistory[currentHistory.length - 1];
     const squares = currentState.squares.slice();
@@ -55,7 +55,7 @@ export function Game(props) {
 
     setHistory(currentHistory.concat([{ squares: squares }]));
     setStepNumber(currentHistory.length);
-    setXIsNext(!xIsNext);
+    setXIsNext((xIsNext) => !xIsNext);
   }
 
   function renderHistoricalMove(_move, index) {
@@ -88,8 +88,8 @@ function calculateWinner(squares) {
   return null;
 }
 
-function getStatus(current, xIsNext) {
-  const winner = calculateWinner(current.squares);
+function getStatus(currentState, xIsNext) {
+  const winner = calculateWinner(currentState.squares);
   let status;
 
   if (winner) {

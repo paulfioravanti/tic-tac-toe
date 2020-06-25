@@ -1,22 +1,29 @@
 import React, { useState } from "react";
 import { Row } from "./Row";
 
-export function Board(props) {
-  const [rows] = useState(initRows(props));
-  const boardRows = renderBoardRows(rows, props);
+export function Board({ cells, squares, handleClick }) {
+  const [rows] = useState(chunk([...cells], 3));
+  const boardRows = rows.map(renderBoardRow.bind(null));
 
   return (
     <div>
       {boardRows}
     </div>
   );
+
+  function renderBoardRow(row, index) {
+    return (
+      <Row
+        key={index}
+        row={row}
+        squares={squares}
+        handleClick={handleClick}
+      />
+    );
+  }
 }
 
 // PRIVATE
-
-function initRows({ cells }) {
-  return chunk([...cells], 3);
-}
 
 function chunk(array, size) {
   const chunked = [];
@@ -26,21 +33,4 @@ function chunk(array, size) {
     index += size;
   }
   return chunked;
-}
-
-function renderBoardRows(rows, props) {
-  return rows.map(renderBoardRow.bind(null, props));
-}
-
-function renderBoardRow({ squares, handleClick }, row, index) {
-  const key = `row-${index}`;
-
-  return (
-    <Row
-      key={key}
-      row={row}
-      squares={squares}
-      handleClick={handleClick}
-    />
-  );
 }
