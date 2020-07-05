@@ -30,7 +30,6 @@ export function Game(): JSX.Element {
     useState<History>(initialHistory);
   const [stepNumber, setStepNumber]: Hooks<number> = useState<number>(0);
   const [xIsNext, setXIsNext]: Hooks<boolean> = useState<boolean>(true);
-  const handleClick: HandleClickFn = setHandleClick;
   const currentMove: Move = history[stepNumber];
   const status: string = getStatus(currentMove, xIsNext);
   const squares: SquareOccupant[] = currentMove.squares;
@@ -54,7 +53,7 @@ export function Game(): JSX.Element {
 
   // PRIVATE
 
-  function setHandleClick(square: number): void {
+  function handleClick(square: number): void {
     const currentHistory: History = history.slice(0, stepNumber + 1);
     const currentMove: Move = currentHistory[currentHistory.length - 1];
     const squares: SquareOccupant[] = currentMove.squares.slice();
