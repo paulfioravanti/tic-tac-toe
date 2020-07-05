@@ -2,6 +2,8 @@ import React from "react";
 import { SquareOccupant, HandleClickFn } from "./Game";
 import { Square } from "./Square";
 
+export type HandleSquareClickFn = () => void;
+
 type Props = {
   row: number[],
   squares: SquareOccupant[],
@@ -32,7 +34,7 @@ function renderSquare(
 ) {
   const key: string = `square-${index}`;
   const value: SquareOccupant = squares[square];
-  const handleSquareClick: HandleClickFn = handleClick.bind(null, square);
+  const handleSquareClick: HandleSquareClickFn = handleClick(square);
 
   return (
     <Square

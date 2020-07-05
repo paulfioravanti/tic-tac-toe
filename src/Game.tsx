@@ -4,7 +4,7 @@ import { HistoricalMove } from "./HistoricalMove";
 import { MaybeNull, Hooks } from "./Types"
 
 export type SquareOccupant = MaybeNull<Player>;
-export type HandleClickFn = (square: number) => void;
+export type HandleClickFn = (square: number) => () => void;
 
 type Player = "X" | "O";
 type Move = { squares: SquareOccupant[] };
@@ -53,19 +53,21 @@ export function Game(): JSX.Element {
 
   // PRIVATE
 
-  function handleClick(square: number): void {
-    const currentHistory: History = history.slice(0, stepNumber + 1);
-    const currentMove: Move = currentHistory[currentHistory.length - 1];
-    const squares: SquareOccupant[] = currentMove.squares.slice();
+  function handleClick(square: number): () => void {
+    return (): void => {
+      const currentHistory: History = history.slice(0, stepNumber + 1);
+      const currentMove: Move = currentHistory[currentHistory.length - 1];
+      const squares: SquareOccupant[] = currentMove.squares.slice();
 
-    if (calculateWinner(squares) || squares[square]) {
-      return;
+      if (calculateWinner(squares) || squares[square]) {
+        return;
+      }
+      squares[square] = nextPlayer(xIsNext);
+
+      setHistory(currentHistory.concat([{ squares: squares }]));
+      setStepNumber(currentHistory.length);
+      setXIsNext((xIsNext) => !xIsNext);
     }
-    squares[square] = nextPlayer(xIsNext);
-
-    setHistory(currentHistory.concat([{ squares: squares }]));
-    setStepNumber(currentHistory.length);
-    setXIsNext((xIsNext) => !xIsNext);
   }
 
   function renderHistoricalMove(_move: Move, index: number): JSX.Element {
