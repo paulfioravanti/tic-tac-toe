@@ -1,18 +1,18 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { useState } from "react";
 import { Board } from "./Board";
 import { HistoricalMove } from "./HistoricalMove";
+import { MaybeNull, Hooks } from "./Types"
 
-type MaybeNull<T> = T | null;
-type Hooks<T> = [T, Dispatch<SetStateAction<T>>];
+export type Square = MaybeNull<Player>;
+export type HandleClickFn = (square: number) => void;
+
 type Player = "X" | "O";
-type Square = MaybeNull<Player>;
 type Move = { squares: Square[] };
 type History = Move[];
 type HandleHistoricalMoveClickFn = (index: number) => void;
-type HandleClickFn = (square: number) => void;
 
 const INITIAL_BOARD: Square[] = Array(9).fill(null);
-const CELLS: IterableIterator<number> = INITIAL_BOARD.keys();
+const CELLS: number[] = Array.from(INITIAL_BOARD.keys());
 const LINES: Readonly<number[][]> = Object.freeze([
   [0, 1, 2],
   [3, 4, 5],
@@ -39,8 +39,8 @@ export function Game(): JSX.Element {
     <div className="game">
       <div className="game-board">
         <Board
-          squares={squares}
           cells={CELLS}
+          squares={squares}
           handleClick={handleClick}
         />
       </div>
