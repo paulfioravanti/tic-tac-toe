@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Row } from "./Row";
-import { Square, HandleClickFn } from "./Game";
+import { SquareOccupant, HandleClickFn } from "./Game";
 import { Hooks } from "./Types";
 
 type Props = {
   cells: number[],
-  squares: Square[],
+  squares: SquareOccupant[],
   handleClick: HandleClickFn
 };
 

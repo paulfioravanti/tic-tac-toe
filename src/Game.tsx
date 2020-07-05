@@ -3,15 +3,15 @@ import { Board } from "./Board";
 import { HistoricalMove } from "./HistoricalMove";
 import { MaybeNull, Hooks } from "./Types"
 
-export type Square = MaybeNull<Player>;
+export type SquareOccupant = MaybeNull<Player>;
 export type HandleClickFn = (square: number) => void;
 
 type Player = "X" | "O";
-type Move = { squares: Square[] };
+type Move = { squares: SquareOccupant[] };
 type History = Move[];
 type HandleHistoricalMoveClickFn = (index: number) => void;
 
-const INITIAL_BOARD: Square[] = Array(9).fill(null);
+const INITIAL_BOARD: SquareOccupant[] = Array(9).fill(null);
 const CELLS: number[] = Array.from(INITIAL_BOARD.keys());
 const LINES: Readonly<number[][]> = Object.freeze([
   [0, 1, 2],
@@ -26,13 +26,14 @@ const LINES: Readonly<number[][]> = Object.freeze([
 
 export function Game(): JSX.Element {
   const initialHistory = [{ squares: INITIAL_BOARD }];
-  const [history, setHistory]: Hooks<History> = useState<History>(initialHistory);
+  const [history, setHistory]: Hooks<History> =
+    useState<History>(initialHistory);
   const [stepNumber, setStepNumber]: Hooks<number> = useState<number>(0);
   const [xIsNext, setXIsNext]: Hooks<boolean> = useState<boolean>(true);
-  const handleClick: HandleClickFn = setHandleClick.bind(null);
+  const handleClick: HandleClickFn = setHandleClick;
   const currentMove: Move = history[stepNumber];
   const status: string = getStatus(currentMove, xIsNext);
-  const squares: Square[] = currentMove.squares;
+  const squares: SquareOccupant[] = currentMove.squares;
   const moves: JSX.Element[] = history.map(renderHistoricalMove.bind(null));
 
   return (
@@ -56,7 +57,7 @@ export function Game(): JSX.Element {
   function setHandleClick(square: number): void {
     const currentHistory: History = history.slice(0, stepNumber + 1);
     const currentMove: Move = currentHistory[currentHistory.length - 1];
-    const squares: Square[] = currentMove.squares.slice();
+    const squares: SquareOccupant[] = currentMove.squares.slice();
 
     if (calculateWinner(squares) || squares[square]) {
       return;
@@ -89,7 +90,7 @@ export function Game(): JSX.Element {
 
 // PRIVATE
 
-function calculateWinner(squares: Square[]): MaybeNull<Player> {
+function calculateWinner(squares: SquareOccupant[]): MaybeNull<Player> {
   for (let i: number = 0, len = LINES.length; i < len; i++) {
     const [a, b, c]: number[] = LINES[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
