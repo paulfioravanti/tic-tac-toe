@@ -1,9 +1,9 @@
 import React from "react";
 import { SquareOccupant } from "./Game";
-import { HandleSquareClickFn } from "./Row";
+import { HandleMouseClickFn } from "./Types";
 
 type Props = {
-  handleClick: HandleSquareClickFn,
+  handleClick: HandleMouseClickFn,
   value: SquareOccupant
 };
 

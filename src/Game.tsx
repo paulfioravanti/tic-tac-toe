@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Board } from "./Board";
 import { HistoricalMove } from "./HistoricalMove";
-import { MaybeNull, Hooks } from "./Types"
+import { MaybeNull, Hooks, HandleMouseClickFn } from "./Types"
 
 export type SquareOccupant = MaybeNull<Player>;
 export type HandleClickFn = (square: number) => () => void;
@@ -9,7 +9,6 @@ export type HandleClickFn = (square: number) => () => void;
 type Player = "X" | "O";
 type Move = { squares: SquareOccupant[] };
 type History = Move[];
-type HandleHistoricalMoveClickFn = (index: number) => void;
 
 const INITIAL_BOARD: SquareOccupant[] = Array(9).fill(null);
 const CELLS: number[] = Array.from(INITIAL_BOARD.keys());
@@ -53,7 +52,7 @@ export function Game(): JSX.Element {
 
   // PRIVATE
 
-  function handleClick(square: number): () => void {
+  function handleClick(square: number): HandleMouseClickFn {
     return (): void => {
       const currentHistory: History = history.slice(0, stepNumber + 1);
       const currentMove: Move = currentHistory[currentHistory.length - 1];
@@ -71,8 +70,7 @@ export function Game(): JSX.Element {
   }
 
   function renderHistoricalMove(_move: Move, index: number): JSX.Element {
-    const handleHistoricalMoveClick: HandleHistoricalMoveClickFn =
-      jumpTo.bind(null, index);
+    const handleHistoricalMoveClick: HandleMouseClickFn = jumpTo(index);
 
     return (
       <HistoricalMove
@@ -83,9 +81,11 @@ export function Game(): JSX.Element {
     );
   }
 
-  function jumpTo(index: number): void {
-    setStepNumber(index);
-    setXIsNext(index % 2 === 0);
+  function jumpTo(index: number): HandleMouseClickFn {
+    return (): void => {
+      setStepNumber(index);
+      setXIsNext(index % 2 === 0);
+    }
   }
 }
 

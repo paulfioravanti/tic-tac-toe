@@ -1,8 +1,7 @@
 import React from "react";
 import { SquareOccupant, HandleClickFn } from "./Game";
 import { Square } from "./Square";
-
-export type HandleSquareClickFn = () => void;
+import { HandleMouseClickFn } from "./Types";
 
 type Props = {
   row: number[],
@@ -22,7 +21,7 @@ export function Row(props: Props): JSX.Element {
 
 // PRIVATE
 
-function renderSquares({ row, squares, handleClick }: Props) {
+function renderSquares({ row, squares, handleClick }: Props): JSX.Element[] {
   return row.map(renderSquare.bind(null, squares, handleClick));
 }
 
@@ -31,10 +30,10 @@ function renderSquare(
   handleClick: HandleClickFn,
   square: number,
   index: number
-) {
+): JSX.Element {
   const key: string = `square-${index}`;
   const value: SquareOccupant = squares[square];
-  const handleSquareClick: HandleSquareClickFn = handleClick(square);
+  const handleSquareClick: HandleMouseClickFn = handleClick(square);
 
   return (
     <Square
