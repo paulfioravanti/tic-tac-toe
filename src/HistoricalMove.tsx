@@ -1,5 +1,5 @@
-import React from "react";
-import { HandleMouseClickFn } from "./Types";
+import React from "react"
+import { HandleMouseClickFn } from "./Types"
 
 type Props = {
   key: number,
@@ -8,7 +8,7 @@ type Props = {
 }
 
 export function HistoricalMove({ move, handleClick }: Props): JSX.Element {
-  const description: string = move ? "Go to move #" + move : "Go to game start";
+  const description: string = move ? "Go to move #" + move : "Go to game start"
 
   return (
     <li>
@@ -16,5 +16,5 @@ export function HistoricalMove({ move, handleClick }: Props): JSX.Element {
         {description}
       </button>
     </li>
-  );
+  )
 }
