@@ -30,9 +30,15 @@
     "quotes": ["error", "double"],
     "semi": ["error", "never"],
     "comma-dangle": ["error", "never"],
-    "no-use-before-define": [
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": [
       "error",
-      { "functions": false, "classes": true, "variables": true }
+      {
+        "functions": false,
+        "typedefs": false,
+        "classes": true,
+        "variables": true
+      }
     ]
   }
 }

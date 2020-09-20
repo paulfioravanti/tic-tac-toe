@@ -3,10 +3,9 @@ import { Board } from "./Board"
 import { HistoricalMove } from "./HistoricalMove"
 import { MaybeNull, Hooks, HandleMouseClickFn } from "./Types"
 
+type Player = "X" | "O"
 export type SquareOccupant = MaybeNull<Player>
 export type HandleClickFn = (square: number) => () => void
-
-type Player = "X" | "O"
 type Move = { squares: SquareOccupant[] }
 type History = Move[]
 
